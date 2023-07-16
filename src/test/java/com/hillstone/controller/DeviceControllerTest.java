@@ -32,7 +32,9 @@ class DeviceControllerTest {
 
     @Test
     void deleteDevice() {
-        deviceController.deleteDevice("000001");
+        DeviceVo deviceVo = new DeviceVo();
+        deviceVo.setSn("");
+        deviceController.deleteDevice(deviceVo);
     }
 
     @Test
