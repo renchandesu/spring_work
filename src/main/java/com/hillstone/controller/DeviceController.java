@@ -1,11 +1,10 @@
 package com.hillstone.controller;
 
-import com.hillstone.entity.po.Device;
 import com.hillstone.entity.vo.DeviceCustomerVo;
 import com.hillstone.entity.vo.DeviceVo;
-import com.hillstone.kafka.KafkaProducer;
 import com.hillstone.service.DeviceService;
 import com.hillstone.util.R;
+import com.hillstone.validate.DeleteGroup;
 import com.hillstone.validate.InsertGroup;
 import com.hillstone.validate.QueryGroup;
 import com.hillstone.validate.UpdateGroup;
@@ -19,8 +18,7 @@ import java.util.List;
 @RequestMapping("/device")
 public class DeviceController {
 
-    @Autowired
-    KafkaProducer kafkaProducer;
+
     @Autowired
     DeviceService deviceService;
 
@@ -30,7 +28,7 @@ public class DeviceController {
     }
 
     @DeleteMapping("/")
-    public R deleteDevice(@RequestBody @Validated DeviceVo deviceVo){
+    public R deleteDevice(@RequestBody @Validated(value = DeleteGroup.class) DeviceVo deviceVo){
         return deviceService.deleteDevice(deviceVo.getSn());
     }
 
@@ -40,17 +38,11 @@ public class DeviceController {
     }
 
     @GetMapping("/")
-    public R<List<DeviceCustomerVo>> queryDevice(@RequestBody @Validated(value = QueryGroup.class) DeviceVo deviceVo){
+    public R<List<DeviceCustomerVo>> queryDevice(@Validated(value = QueryGroup.class) DeviceVo deviceVo){
         return deviceService.queryPage(deviceVo);
     }
 
 
-    /**
-     * 心跳包接口，向kafka消息队列发送消息
-     */
-    @GetMapping("/heart")
-    public void sendHeartByKafka(@RequestParam(required = true) String sn, @RequestParam(required = true) int online){
-        kafkaProducer.send(sn,online);
-    }
+
 
 }

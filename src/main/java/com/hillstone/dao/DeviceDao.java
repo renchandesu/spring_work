@@ -6,9 +6,10 @@ import com.hillstone.entity.vo.DeviceVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -94,9 +95,9 @@ public class DeviceDao {
             sb.append("AND d.create_time <= ? ");
             params.add(deviceVo.getEndTime());
         }
-        if (deviceVo.getCustomerId() != null){
-            sb.append("AND c.customer_id = ? ");
-            params.add(deviceVo.getCustomerId());
+        if (deviceVo.getCustomerName() != null){
+            sb.append("AND c.customer_name = ? ");
+            params.add(deviceVo.getCustomerName());
         }
         sb.append("LIMIT ?,?");
         params.add((deviceVo.getPage() - 1) * deviceVo.getLimit());

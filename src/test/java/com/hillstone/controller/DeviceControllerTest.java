@@ -7,18 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class DeviceControllerTest {
 
     @Autowired
     private DeviceController deviceController;
-
-    @Test
-    void sendHeartByKafka() {
-        deviceController.sendHeartByKafka("000001",1);
-    }
 
     @Test
     void addDevice() {
