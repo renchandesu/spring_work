@@ -41,6 +41,7 @@ public class DeviceService {
     public R deleteDevice(String sn) {
         deviceDao.deleteDevice(sn);
         deviceDao.deleteRelation(sn);
+        deviceDao.deleteDevice(sn);
         log.info("删除设备成功 sn:[{}]",sn);
         return ResultUtil.result(SUCCESS,null,null);
     }

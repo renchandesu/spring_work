@@ -28,4 +28,8 @@ public class RedisClient {
         return res == null ? "0" : res;
     }
 
+    public void deleteKey(String sn){
+        stringRedisTemplate.delete(sn);
+    }
+
 }
